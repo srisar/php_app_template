@@ -1,0 +1,15 @@
+{
+  "name": "srisardev/php_app_template",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Developer",
+      "email": "dev@example.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "5.0.x-dev"
+  }
+}
