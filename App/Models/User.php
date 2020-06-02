@@ -17,6 +17,7 @@ class User implements AbstractModel
     public const ROLE_ADMIN = 'ADMIN';
     public const ROLE_MANAGER = 'MANAGER';
     public const ROLE_USER = 'USER';
+    public const ROLE_NONE = 'NONE';
 
     public static function build($fields)
     {
@@ -43,8 +44,8 @@ class User implements AbstractModel
     {
         $db = Database::instance();
         $statement = $db->prepare("SELECT * FROM users LIMIT :limit_value OFFSET :offset_value");
-        $statement->bindValue(':limit_value', $limit);
-        $statement->bindValue(':offset_value', $offset);
+        $statement->bindValue(':limit_value', $limit, PDO::PARAM_INT);
+        $statement->bindValue(':offset_value', $offset, PDO::PARAM_INT);
 
         $statement->execute();
 

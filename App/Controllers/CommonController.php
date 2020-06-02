@@ -14,4 +14,9 @@ class CommonController
         View::render("system/404.view");
     }
 
+    public function showNotAuthorized()
+    {
+        echo "Not authorized!";
+    }
+
 }

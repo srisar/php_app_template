@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controllers;
+namespace App\Controllers\System;
 
 
 use App\Core\View;
@@ -10,7 +10,7 @@ use App\Models\User;
 class UsersController
 {
 
-    public function index(){
+    public function viewUsers(){
 
         $users = User::findAll();
 

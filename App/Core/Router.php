@@ -5,6 +5,8 @@ namespace App\Core;
 
 
 use App\Controllers\CommonController;
+use App\Core\Sessions\AuthSession;
+use App\Models\User;
 
 class Router
 {
@@ -13,17 +15,27 @@ class Router
     private static array $postList = [];
 
     /**
+     * Add routes to GET method handling
+     *
      * @param string $path
      * @param string $controller - "Controller@method"
+     * @param string $accessRole
      */
-    public static function get(string $path, string $controller)
+    public static function get(string $path, string $controller, string $accessRole = User::ROLE_NONE)
     {
-        self::$getList[$path] = $controller;
+        self::$getList[$path] = ['controller' => $controller, 'access' => $accessRole];
     }
 
-    public static function post(string $path, string $controller)
+    /**
+     * Add routes to POST method handling
+     *
+     * @param string $path
+     * @param string $controller
+     * @param string $accessRole
+     */
+    public static function post(string $path, string $controller, string $accessRole = User::ROLE_NONE)
     {
-        self::$postList[$path] = $controller;
+        self::$postList[$path] = ['controller' => $controller, 'access' => $accessRole];
     }
 
 
@@ -37,8 +49,10 @@ class Router
 
         if ( Request::method() == Request::REQUEST_GET ) {
             self::doRoute($path, self::$getList);
+
         } elseif ( Request::method() == Request::REQUEST_POST ) {
             self::doRoute($path, self::$postList);
+
         }
 
     }
@@ -48,7 +62,12 @@ class Router
     {
         if ( array_key_exists($path, $routeList) ) {
 
-            $controllerData = explode("@", $routeList[$path]);
+            if ( !self::validateUserAccess($routeList[$path]['access']) ) {
+                (new CommonController())->showNotAuthorized();
+                return;
+            }
+
+            $controllerData = explode("@", $routeList[$path]['controller']);
 
             $controller = $controllerData[0];
             $method = $controllerData[1];
@@ -70,6 +89,28 @@ class Router
             return;
 
         }
+    }
+
+    private static function validateUserAccess(string $pathAccessRole)
+    {
+        if ( $pathAccessRole == User::ROLE_ADMIN ) {
+            if ( AuthSession::validateAdmin() ) {
+                return true;
+            }
+            return false;
+        } elseif ( $pathAccessRole == User::ROLE_MANAGER ) {
+            if ( AuthSession::validateManager() ) {
+                return true;
+            }
+            return false;
+        } elseif ( $pathAccessRole == User::ROLE_USER ) {
+            if ( AuthSession::validateUser() ) {
+                return true;
+            }
+            return false;
+        }
+
+        return true;
     }
 
 }

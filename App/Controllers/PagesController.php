@@ -13,7 +13,14 @@ class PagesController
     public function index()
     {
 
+        var_dump($_SESSION);
+
         View::render("index.view");
+    }
+
+    public function hello()
+    {
+        echo "this can only be viewed by admin";
     }
 
 
