@@ -12,7 +12,8 @@
   "require": {
     "vlucas/phpdotenv": "5.0.x-dev",
     "ext-pdo": "*",
-    "ext-readline": "*"
+    "ext-readline": "*",
+    "ext-http": "*"
   },
   "autoload": {
     "psr-4": {

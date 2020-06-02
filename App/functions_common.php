@@ -1,5 +1,7 @@
 <?php
 
+use App\Core\ErrorMessages;
+
 /**
  * Convert the numerical value to currency format
  * @param float $value
@@ -34,4 +36,14 @@ function toDateTime($timestamp): string
 function cleanErrorMessagesBuffer()
 {
     $_SESSION['_MESSAGES']['_ERRORS'] = [];
+}
+
+
+function renderErrorFeedback($key)
+{
+
+    if ( ErrorMessages::has($key) ) {
+        printf("<span class='text-danger'>%s</span>", ErrorMessages::get($key));
+    }
+
 }

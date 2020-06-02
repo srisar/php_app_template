@@ -34,6 +34,12 @@ class AuthSession
     }
 
 
+    public static function getUserDisplayName()
+    {
+        return $_SESSION[self::_AUTH][self::_USER][self::_DISPLAY_NAME];
+    }
+
+
     public static function validate(): bool
     {
         if ( isset($_SESSION[self::_AUTH][self::_AUTHENTICATED]) ) {

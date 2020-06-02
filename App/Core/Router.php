@@ -4,7 +4,7 @@
 namespace App\Core;
 
 
-use App\Controllers\CommonController;
+use App\Controllers\System\CommonController;
 use App\Core\Sessions\AuthSession;
 use App\Models\User;
 

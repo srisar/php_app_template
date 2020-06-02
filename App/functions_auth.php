@@ -20,3 +20,7 @@ function authenticate(array $fields): bool
     }
     return false;
 }
+
+function hashPassword($password){
+    return password_hash($password, PASSWORD_DEFAULT);
+}

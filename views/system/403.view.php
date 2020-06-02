@@ -16,10 +16,11 @@ use App\Core\App;
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-12">
-            <h1 class="text-center text-danger">404 | Not found!</h1>
+        <div class="col-12 col-md-8">
+            <h1 class="text-center text-danger">401 | Not authorized!</h1>
             <hr>
-            <p class="text-center">The page you are looking for is not found.</p>
+            <p class="text-center">It seems you do not have proper authorization to view this page. <br>
+                Please check if you have logged in with correct credentials.</p>
             <p class="text-center"><a href="<?= App::url('/') ?>">Back to home</a></p>
         </div>
     </div>

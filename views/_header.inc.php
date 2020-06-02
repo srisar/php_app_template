@@ -16,3 +16,5 @@ use App\Core\Sessions\AuthSession;
     <script src="<?= App::siteURL() ?>/js/app.js" defer></script>
 </head>
 <body>
+
+<?php include_once BASE_PATH . "/views/_topnav.inc.php"; ?>

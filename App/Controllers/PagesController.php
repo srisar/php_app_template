@@ -13,8 +13,6 @@ class PagesController
     public function index()
     {
 
-        var_dump($_SESSION);
-
         View::render("index.view");
     }
 
