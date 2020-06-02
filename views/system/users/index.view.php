@@ -31,7 +31,7 @@ $users = View::getData('users');
                             <tbody>
                             <?php foreach ( $users as $user ): ?>
                                 <tr>
-                                    <td><?= $user->username ?></td>
+                                    <td><a href="<?= App::url('/users/edit', ['id' => $user->id]) ?>"><?= $user->username ?></a></td>
                                     <td><?= $user->display_name ?></td>
                                     <td><?= $user->role ?></td>
                                 </tr>

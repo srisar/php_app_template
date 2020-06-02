@@ -30,4 +30,6 @@ Router::post('/auth/process-login', 'System\AuthController@processLogin');
  */
 Router::get('/users', "System\UsersController@viewUsers", User::ROLE_ADMIN);
 Router::get('/users/add', "System\UsersController@viewAddUser", User::ROLE_ADMIN);
+Router::get('/users/edit', "System\UsersController@viewEditUser", User::ROLE_ADMIN);
+
 Router::post('/users/process-add', "System\UsersController@processAddUser", User::ROLE_ADMIN);

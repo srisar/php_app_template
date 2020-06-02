@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use App\Core\Database\Database;
+use mysql_xdevapi\Statement;
 use PDO;
 
 class User implements AbstractModel
@@ -29,9 +30,21 @@ class User implements AbstractModel
     }
 
 
+    /**
+     * @param int $id
+     * @return User|null
+     */
     public static function find(int $id)
     {
-        // TODO: Implement find() method.
+        $db = Database::instance();
+        $stmt = $db->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+        $stmt->execute([$id]);
+
+        /** @var User $result */
+        $result = $stmt->fetchObject(User::class);
+
+        if ( !empty($result) ) return $result;
+        return null;
     }
 
 

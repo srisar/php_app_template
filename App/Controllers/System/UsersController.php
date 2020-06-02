@@ -35,6 +35,33 @@ class UsersController
     }
 
     /**
+     * View - Display edit user page
+     */
+    public function viewEditUser()
+    {
+
+        $id = Request::getAsInteger('id');
+
+        if(is_null($id)){
+            App::redirect('/');
+            return;
+        }
+
+        $user = User::find($id);
+
+        if(empty($user)){
+            App::redirect('/');
+            return;
+        }
+
+        View::setData('user', $user);
+        View::render('system/users/edit.view');
+
+
+    }
+
+
+    /**
      * Process - Add a new user
      */
     public function processAddUser()
