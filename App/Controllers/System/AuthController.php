@@ -5,7 +5,8 @@ namespace App\Controllers\System;
 
 
 use App\Core\App;
-use App\Core\ErrorMessages;
+use App\Core\FlashMessage;
+use App\Core\Messages\ErrorMessages;
 use App\Core\Request;
 use App\Core\Sessions\AuthSession;
 use App\Core\View;

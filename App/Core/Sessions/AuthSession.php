@@ -13,7 +13,7 @@ class AuthSession
     private const _AUTHENTICATED = '_AUTHENTICATED';
     private const _USER = '_USER';
     private const _USERNAME = '_USERNAME';
-    private const _DISPLAY_NAME = '_DISPLAY_NEM';
+    private const _DISPLAY_NAME = '_DISPLAY_NAME';
     private const _ROLE = '_ROLE';
 
     public static function init(User $user)

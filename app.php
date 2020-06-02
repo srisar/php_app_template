@@ -13,8 +13,7 @@ use Dotenv\Dotenv;
 use App\Core\Database\Database;
 
 
-require_once "App/functions_common.php";
-require_once "App/functions_auth.php";
+require_once "App/functions.inc.php";
 
 /*
  * ---------------------------------------------------------------------------------------

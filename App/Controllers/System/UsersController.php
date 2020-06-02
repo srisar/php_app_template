@@ -5,7 +5,8 @@ namespace App\Controllers\System;
 
 
 use App\Core\App;
-use App\Core\ErrorMessages;
+use App\Core\FlashMessage;
+use App\Core\Messages\ErrorMessages;
 use App\Core\Request;
 use App\Core\View;
 use App\Models\User;
@@ -42,14 +43,14 @@ class UsersController
 
         $id = Request::getAsInteger('id');
 
-        if(is_null($id)){
+        if ( is_null($id) ) {
             App::redirect('/');
             return;
         }
 
         $user = User::find($id);
 
-        if(empty($user)){
+        if ( empty($user) ) {
             App::redirect('/');
             return;
         }
@@ -101,6 +102,58 @@ class UsersController
 
         }
 
+    }
+
+    public function processEditUser()
+    {
+
+        $fields = [
+            'id' => Request::getAsInteger('id'),
+            'username' => Request::getAsString('username'),
+            'password' => Request::getAsString('password'),
+            'display_name' => Request::getAsString('display_name'),
+            'role' => Request::getAsString('user_role'),
+        ];
+
+        // the user tuple we are about to update
+        $user = User::find($fields['id']);
+
+        // check if new username exists for another user
+        $tempUser = User::findByUsername($fields['username']);
+
+        if ( empty($tempUser) || $tempUser->id == $user->id ) {
+            // new username is available to the user,
+            // proceed to update the user
+
+            $user->username = $fields['username'];
+            $user->display_name = $fields['display_name'];
+            $user->role = $fields['role'];
+
+            // check if password field is empty: keep the existing password
+            // if not, update the password
+            if ( !empty($fields['password']) ) {
+
+                if ( strlen($fields['password']) < 5 ) {
+                    $isValid = false;
+                    ErrorMessages::push('password_length', 'Password cannot be less than 6 letters');
+                    App::redirect('/users/edit', ['id' => $user->id]);
+                    return;
+                }
+
+                $fields['password'] = hashPassword($fields['password']);
+                $user->password = $fields['password'];
+            }
+
+            if ( $user->update() ) {
+                App::redirect('/users');
+                return;
+            }
+
+        }else{
+            ErrorMessages::push('username_exists', 'Username already exists.');
+            App::redirect('/users/edit', ['id' => $user->id]);
+            return;
+        }
 
     }
 

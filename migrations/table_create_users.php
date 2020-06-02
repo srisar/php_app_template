@@ -66,7 +66,7 @@ function drop($query)
 function createAdminUser()
 {
     $username = readline("admin username: ");
-    $password = readline("admin password: ");
+    $password = readline("admin password (min 5 letters): ");
     $displayName = readline("admin display name: ");
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

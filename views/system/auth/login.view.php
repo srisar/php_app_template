@@ -1,7 +1,8 @@
 <?php
 
 use App\Core\App;
-use App\Core\ErrorMessages;
+use App\Core\FlashMessage;
+use App\Core\Messages\ErrorMessages;
 
 ?>
 <!doctype html>

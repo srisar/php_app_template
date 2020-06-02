@@ -36,7 +36,7 @@ include_once BASE_PATH . '/views/_header.inc.php'; ?>
                                         <input type="text" class="form-control" id="field_username" name="username" required>
                                         <div class="invalid-feedback">Username cannot be empty</div>
 
-                                        <?php renderErrorFeedback('username_exists'); ?>
+                                        <?php renderFlashErrorFeedback('username_exists'); ?>
 
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@ include_once BASE_PATH . '/views/_header.inc.php'; ?>
                                         <label for="field_password">Password</label>
                                         <input type="password" class="form-control" id="field_password" name="password" required>
                                         <div class="invalid-feedback">Password cannot be empty</div>
-                                        <?php renderErrorFeedback('password_length'); ?>
+                                        <?php renderFlashErrorFeedback('password_length'); ?>
                                     </div>
                                 </div>
 

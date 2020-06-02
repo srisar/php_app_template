@@ -16,7 +16,10 @@ $users = View::getData('users');
             <div class="col-12 col-md-8">
 
                 <div class="card">
-                    <div class="card-header"><h1>Manage users</h1></div>
+                    <div class="card-header">
+                        <div class="float-left"><h1>Manage users</h1></div>
+                        <div class="float-right"><a href="<?= App::url('/users/add') ?>" class="btn btn-primary btn-sm">New user</a></div>
+                    </div>
                     <div class="card-body">
 
                         <table class="table table-bordered table-striped">

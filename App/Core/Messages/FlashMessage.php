@@ -1,12 +1,14 @@
 <?php
 
 
-namespace App\Core;
+namespace App\Core\Messages;
 
 
-class ErrorMessages
+class FlashMessage
 {
 
+
+    public static ?string $flashKey;
 
     /**
      * Add a new error message.
@@ -16,7 +18,7 @@ class ErrorMessages
      */
     public static function push($key, $value)
     {
-        $_SESSION['_MESSAGES']['_ERRORS'][$key] = $value;
+        $_SESSION['_MESSAGES'][self::$flashKey][$key] = $value;
     }
 
     /**
@@ -28,7 +30,7 @@ class ErrorMessages
      */
     public static function has($key)
     {
-        if ( array_key_exists($key, $_SESSION['_MESSAGES']['_ERRORS']) ) {
+        if ( isset($_SESSION['_MESSAGES'][self::$flashKey]) && array_key_exists($key, $_SESSION['_MESSAGES'][self::$flashKey]) ) {
             return true;
         }
         return false;
@@ -43,8 +45,8 @@ class ErrorMessages
      */
     public static function get($key)
     {
-        $data = $_SESSION['_MESSAGES']['_ERRORS'][$key];
-        unset($_SESSION['_MESSAGES']['_ERRORS'][$key]);
+        $data = $_SESSION['_MESSAGES'][self::$flashKey][$key];
+        unset($_SESSION['_MESSAGES'][self::$flashKey][$key]);
         return $data;
     }
 

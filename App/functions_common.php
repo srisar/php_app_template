@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\ErrorMessages;
+use App\Core\Messages\ErrorMessages;
 
 /**
  * Convert the numerical value to currency format
@@ -33,13 +33,8 @@ function toDateTime($timestamp): string
 }
 
 
-function cleanErrorMessagesBuffer()
-{
-    $_SESSION['_MESSAGES']['_ERRORS'] = [];
-}
 
-
-function renderErrorFeedback($key)
+function renderFlashErrorFeedback($key)
 {
 
     if ( ErrorMessages::has($key) ) {

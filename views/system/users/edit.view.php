@@ -20,7 +20,9 @@ $user = View::getData('user');
                     <div class="card-header"><h1>Edit <?= $user->display_name ?></h1></div>
                     <div class="card-body">
 
-                        <form action="<?= App::url('/users/process-add') ?>" method="post" novalidate class="needs-validation">
+                        <form action="<?= App::url('/users/process-edit') ?>" method="post" novalidate class="needs-validation">
+
+                            <input type="hidden" name="id" value="<?= $user->id ?>">
 
                             <div class="row">
                                 <div class="col">
@@ -40,7 +42,7 @@ $user = View::getData('user');
                                         <input type="text" class="form-control" id="field_username" name="username" required value="<?= $user->username ?>">
                                         <div class="invalid-feedback">Username cannot be empty</div>
 
-                                        <?php renderErrorFeedback('username_exists'); ?>
+                                        <?php renderFlashErrorFeedback('username_exists'); ?>
 
                                     </div>
                                 </div>
@@ -48,9 +50,8 @@ $user = View::getData('user');
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="field_password">Password</label>
-                                        <input type="password" class="form-control" id="field_password" name="password" required>
-                                        <div class="invalid-feedback">Password cannot be empty</div>
-                                        <?php renderErrorFeedback('password_length'); ?>
+                                        <input type="password" class="form-control" id="field_password" name="password">
+                                        <?php renderFlashErrorFeedback('password_length'); ?>
                                     </div>
                                 </div>
 
@@ -63,10 +64,12 @@ $user = View::getData('user');
                                     <div class="form-group">
                                         <label for="dropdown_user_role">User role</label>
                                         <select name="user_role" id="dropdown_user_role" class="form-control">
-                                            
-                                            <option value="<?= User::ROLE_USER ?>">User</option>
-                                            <option value="<?= User::ROLE_MANAGER ?>">Manager</option>
-                                            <option value="<?= User::ROLE_ADMIN ?>">Administrator</option>
+
+                                            <?php foreach ( User::ROLE_LIST as $key => $value ): ?>
+                                                <?php $selected = $key == $user->role ? 'selected' : ''; ?>
+                                                <option <?= $selected ?> value="<?= $key ?>"><?= $value ?></option>
+                                            <?php endforeach; ?>
+
                                         </select>
                                     </div>
 
@@ -80,6 +83,11 @@ $user = View::getData('user');
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col">
+                                    <p>&rarr; Keep password field empty to retain old password.</p>
+                                </div>
+                            </div>
 
                         </form>
 

@@ -10,7 +10,6 @@ use App\Models\User;
  */
 
 Router::get("/", "PagesController@index");
-Router::get("/hello", "PagesController@hello", User::ROLE_ADMIN);
 
 
 /*
@@ -33,3 +32,4 @@ Router::get('/users/add', "System\UsersController@viewAddUser", User::ROLE_ADMIN
 Router::get('/users/edit', "System\UsersController@viewEditUser", User::ROLE_ADMIN);
 
 Router::post('/users/process-add', "System\UsersController@processAddUser", User::ROLE_ADMIN);
+Router::post('/users/process-edit', "System\UsersController@processEditUser", User::ROLE_ADMIN);

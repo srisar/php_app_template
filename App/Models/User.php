@@ -15,6 +15,12 @@ class User implements AbstractModel
     public ?string $username, $password, $display_name, $role, $created_at, $updated_at;
 
 
+    public const ROLE_LIST = [
+        'ADMIN' => 'Administrator',
+        'MANAGER' => 'Manager',
+        'USER' => 'User'
+    ];
+
     public const ROLE_ADMIN = 'ADMIN';
     public const ROLE_MANAGER = 'MANAGER';
     public const ROLE_USER = 'USER';
@@ -74,7 +80,6 @@ class User implements AbstractModel
     public function insert()
     {
         $db = Database::instance();
-
         $statement = $db->prepare("INSERT INTO users(username, password, display_name, role) values (?, ?, ?, ?)");
 
         if ( $statement->execute([$this->username, $this->password, $this->display_name, $this->role]) ) {
@@ -87,7 +92,16 @@ class User implements AbstractModel
 
     public function update()
     {
-        // TODO: Implement update() method.
+        $db = Database::instance();
+        $statement = $db->prepare("UPDATE users SET username=?, password=?, display_name=?, role=? WHERE id=?;");
+
+        return $statement->execute([
+            $this->username,
+            $this->password,
+            $this->display_name,
+            $this->role,
+            $this->id
+        ]);
     }
 
     public function delete()

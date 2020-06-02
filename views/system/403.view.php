@@ -17,7 +17,7 @@ use App\Core\App;
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
-            <h1 class="text-center text-danger">401 | Not authorized!</h1>
+            <h1 class="text-center text-danger">403 | Not authorized!</h1>
             <hr>
             <p class="text-center">It seems you do not have proper authorization to view this page. <br>
                 Please check if you have logged in with correct credentials.</p>
