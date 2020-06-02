@@ -11,7 +11,7 @@ class CommonController
 
     public function show404()
     {
-        return View::render("common/404.view");
+        View::render("system/404.view");
     }
 
 }

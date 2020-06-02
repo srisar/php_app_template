@@ -7,7 +7,7 @@ namespace App\Core\Database;
 use PDO;
 use PDOException;
 
-class DB
+class Database
 {
 
     private static array $config = [

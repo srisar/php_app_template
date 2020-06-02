@@ -29,3 +29,9 @@ function toDateTime($timestamp): string
 {
     return date('Y-m-d g:i:s a', strtotime($timestamp));
 }
+
+
+function cleanErrorMessagesBuffer()
+{
+    $_SESSION['_MESSAGES']['_ERRORS'] = [];
+}

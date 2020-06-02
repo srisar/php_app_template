@@ -2,20 +2,20 @@
 
 require_once "../app.php";
 
-use App\Core\Database\DB;
+use App\Core\Database\Database;
 use App\Models\User;
 
 $query_create_users = "CREATE TABLE `users` (
-	`id` BIGINT NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(255) NOT NULL,
-	`password` VARCHAR(255) NOT NULL,
-	`display_name` VARCHAR(255) NOT NULL,
-	`created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-	`updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-	PRIMARY KEY (`id`)
-    )
-    COLLATE='utf8_general_ci'
-;";
+	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
+	`password` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
+	`display_name` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
+	`created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`role` ENUM('ADMIN','MANAGER','USER') NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8_general_ci';";
 
 $query_drop_users = "DROP TABLE `users`;";
 
@@ -37,7 +37,7 @@ if ( $choice == "1" ) {
 function create($query)
 {
     try {
-        $db = DB::instance();
+        $db = Database::instance();
         if ( $db->query($query) ) {
             echo "Users table created successfully!\n";
             createAdminUser();
@@ -52,7 +52,7 @@ function create($query)
 function drop($query)
 {
     try {
-        $db = DB::instance();
+        $db = Database::instance();
         if ( $db->query($query) ) {
             echo "Users table dropped!\n";
         } else {
@@ -71,10 +71,11 @@ function createAdminUser()
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $user = User::buildUser([
+    $user = User::build([
         'username' => $username,
         'password' => $hashedPassword,
-        'display_name' => $displayName
+        'display_name' => $displayName,
+        'role' => User::ROLE_ADMIN
     ]);
 
     if ( $user->insert() ) {

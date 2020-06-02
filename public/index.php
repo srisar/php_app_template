@@ -8,3 +8,6 @@ require_once "../app.php";
 
 $currentPath = $_SERVER['REDIRECT_URL'] ?? '/';
 Router::route($currentPath);
+
+
+//cleanErrorMessagesBuffer();

@@ -17,7 +17,7 @@ class App
     }
 
     /**
-     * Build a new url based on the path passed.
+     * Build a new url based on the path passed
      * @param string $path
      * @param array $parameters
      * @return string
@@ -30,6 +30,24 @@ class App
             $query = http_build_query($parameters);
             return self::siteURL() . $path . '?' . $query;
         }
+    }
+
+    /**
+     * Redirect to given url path
+     * @param string $path
+     * @param array $params
+     */
+    public static function redirect($path = '/', $params = [])
+    {
+
+        if (empty($params)) {
+            header('Location:' . $path);
+        } else {
+            $query = http_build_query($params);
+            header('Location:' . $path . '?' . $query);
+        }
+
+
     }
 
     /**

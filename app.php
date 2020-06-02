@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+session_start();
 /*
  * ---------------------------------------------------------------------------------------
  * | Create the application
@@ -9,9 +10,11 @@ declare(strict_types=1);
 require_once "vendor/autoload.php";
 
 use Dotenv\Dotenv;
-use App\Core\Database\DB;
+use App\Core\Database\Database;
+
 
 require_once "App/functions_common.php";
+require_once "App/functions_auth.php";
 
 /*
  * ---------------------------------------------------------------------------------------
@@ -40,7 +43,8 @@ $db_config = [
     'PASSWORD' => $_ENV['DB_PASSWORD'],
 ];
 
-DB::init($db_config);
+Database::init($db_config);
+
 
 /*
  * ---------------------------------------------------------------------------------------
@@ -50,3 +54,5 @@ DB::init($db_config);
 
 
 require_once "routes/web.php";
+
+

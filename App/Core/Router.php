@@ -21,6 +21,11 @@ class Router
         self::$getList[$path] = $controller;
     }
 
+    public static function post(string $path, string $controller)
+    {
+        self::$postList[$path] = $controller;
+    }
+
 
     /**
      * Execute the correct route for given path
@@ -31,34 +36,40 @@ class Router
 
 
         if ( Request::method() == Request::REQUEST_GET ) {
-
-            if ( array_key_exists($path, self::$getList) ) {
-
-                $controllerData = explode("@", self::$getList[$path]);
-
-                $controller = $controllerData[0];
-                $method = $controllerData[1];
-
-                $controllerClass = "App\\Controllers\\" . $controller;
-
-                $c = new $controllerClass();
-
-                echo call_user_func([$c, $method]);
-                return;
-            } else {
-
-                /**
-                 * route doesnt exist for the path given.
-                 * display 404 page
-                 */
-
-                echo (new CommonController())->show404();
-                return;
-
-            }
-
+            self::doRoute($path, self::$getList);
+        } elseif ( Request::method() == Request::REQUEST_POST ) {
+            self::doRoute($path, self::$postList);
         }
 
+    }
+
+
+    private static function doRoute(string $path, array $routeList)
+    {
+        if ( array_key_exists($path, $routeList) ) {
+
+            $controllerData = explode("@", $routeList[$path]);
+
+            $controller = $controllerData[0];
+            $method = $controllerData[1];
+
+            $controllerClass = "App\\Controllers\\" . $controller;
+
+            $c = new $controllerClass();
+
+            echo call_user_func([$c, $method]);
+            return;
+        } else {
+
+            /**
+             * route doesnt exist for the path given.
+             * display 404 page
+             */
+
+            (new CommonController())->show404();
+            return;
+
+        }
     }
 
 }

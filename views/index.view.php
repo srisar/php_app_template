@@ -11,6 +11,7 @@ use App\Core\App;
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= App::appName() ?></title>
     <link rel="stylesheet" href="<?= App::siteURL() ?>/css/app.css">
+    <script src="<?= App::siteURL() ?>/js/app.js" defer></script>
 </head>
 <body>
 
