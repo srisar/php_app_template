@@ -6,7 +6,7 @@ namespace App\Controllers\System;
 
 use App\Core\App;
 use App\Core\FlashMessage;
-use App\Core\Messages\ErrorMessages;
+use App\Core\Messages\SessionError;
 use App\Core\Request;
 use App\Core\Sessions\AuthSession;
 use App\Core\View;
@@ -31,7 +31,7 @@ class AuthController
         if ( authenticate($fields) ) {
             App::redirect('/');
         } else {
-            ErrorMessages::push('login', 'Invalid username or password.');
+            SessionError::push('login', 'Invalid username or password.');
             App::redirect('/login');
         }
     }

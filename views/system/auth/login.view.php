@@ -2,7 +2,7 @@
 
 use App\Core\App;
 use App\Core\FlashMessage;
-use App\Core\Messages\ErrorMessages;
+use App\Core\Messages\SessionError;
 
 ?>
 <!doctype html>
@@ -25,9 +25,9 @@ use App\Core\Messages\ErrorMessages;
                 <div class="card-header">Login to <?= App::appName() ?></div>
                 <div class="card-body">
 
-                    <?php if ( ErrorMessages::has('login') ): ?>
+                    <?php if ( SessionError::has('login') ): ?>
                         <div class="alert alert-danger">
-                            <span><?= ErrorMessages::get('login'); ?></span>
+                            <span><?= SessionError::get('login'); ?></span>
                         </div>
                     <?php endif; ?>
 

@@ -4,7 +4,7 @@
 namespace App\Core\Messages;
 
 
-class ErrorMessages extends FlashMessage
+class SessionError extends FlashMessage
 {
 
 

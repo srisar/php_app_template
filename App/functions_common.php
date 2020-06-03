@@ -1,6 +1,7 @@
 <?php
 
-use App\Core\Messages\ErrorMessages;
+use App\Core\Messages\SessionError;
+use App\Core\Messages\SessionForm;
 
 /**
  * Convert the numerical value to currency format
@@ -33,12 +34,19 @@ function toDateTime($timestamp): string
 }
 
 
-
 function renderFlashErrorFeedback($key)
 {
 
-    if ( ErrorMessages::has($key) ) {
-        printf("<span class='text-danger'>%s</span>", ErrorMessages::get($key));
+    if ( SessionError::has($key) ) {
+        printf("<span class='text-danger'>%s</span>", SessionError::get($key));
     }
 
+}
+
+function sessionFormField($field)
+{
+    if ( SessionForm::has($field) ) {
+        return SessionForm::get($field);
+    }
+    return "";
 }

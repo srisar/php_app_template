@@ -6,7 +6,8 @@ namespace App\Controllers\System;
 
 use App\Core\App;
 use App\Core\FlashMessage;
-use App\Core\Messages\ErrorMessages;
+use App\Core\Messages\SessionError;
+use App\Core\Messages\SessionForm;
 use App\Core\Request;
 use App\Core\View;
 use App\Models\User;
@@ -79,14 +80,24 @@ class UsersController
 
         if ( User::findByUsername($fields['username']) ) {
             $isValid = false;
-            ErrorMessages::push('username_exists', 'Username is not available');
+            SessionError::push('username_exists', 'Username is not available');
+
+            SessionForm::push('username', $fields['username']);
+            SessionForm::push('display_name', $fields['display_name']);
+
+
             App::redirect('/users/add');
             return;
         }
 
         if ( strlen($fields['password']) < 5 ) {
             $isValid = false;
-            ErrorMessages::push('password_length', 'Password cannot be less than 6 letters');
+            SessionError::push('password_length', 'Password cannot be less than 6 letters');
+
+            SessionForm::push('username', $fields['username']);
+            SessionForm::push('display_name', $fields['display_name']);
+
+
             App::redirect('/users/add');
             return;
         }
@@ -135,7 +146,7 @@ class UsersController
 
                 if ( strlen($fields['password']) < 5 ) {
                     $isValid = false;
-                    ErrorMessages::push('password_length', 'Password cannot be less than 6 letters');
+                    SessionError::push('password_length', 'Password cannot be less than 6 letters');
                     App::redirect('/users/edit', ['id' => $user->id]);
                     return;
                 }
@@ -149,8 +160,8 @@ class UsersController
                 return;
             }
 
-        }else{
-            ErrorMessages::push('username_exists', 'Username already exists.');
+        } else {
+            SessionError::push('username_exists', 'Username already exists.');
             App::redirect('/users/edit', ['id' => $user->id]);
             return;
         }

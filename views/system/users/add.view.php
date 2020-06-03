@@ -1,12 +1,11 @@
 <?php
 
+use App\Core\App;
+use App\Models\User;
 
 ?>
 
-<?php use App\Core\App;
-use App\Models\User;
-
-include_once BASE_PATH . '/views/_header.inc.php'; ?>
+<?php include_once BASE_PATH . '/views/_header.inc.php'; ?>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -22,7 +21,7 @@ include_once BASE_PATH . '/views/_header.inc.php'; ?>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="field_display_name">Display name</label>
-                                        <input type="text" class="form-control" id="field_display_name" name="display_name" required>
+                                        <input type="text" class="form-control" id="field_display_name" name="display_name" required value="<?= sessionFormField('display_name') ?>">
                                         <div class="invalid-feedback">Display name cannot be empty</div>
                                     </div>
                                 </div>
@@ -33,7 +32,7 @@ include_once BASE_PATH . '/views/_header.inc.php'; ?>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="field_username">Username</label>
-                                        <input type="text" class="form-control" id="field_username" name="username" required>
+                                        <input type="text" class="form-control" id="field_username" name="username" required value="<?= sessionFormField('username') ?>">
                                         <div class="invalid-feedback">Username cannot be empty</div>
 
                                         <?php renderFlashErrorFeedback('username_exists'); ?>
