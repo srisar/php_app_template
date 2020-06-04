@@ -12978,6 +12978,20 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/amd-define.js":
+/*!***************************************!*\
+  !*** (webpack)/buildin/amd-define.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function() {
+	throw new Error("define cannot be used indirect");
+};
+
+
+/***/ }),
+
 /***/ "./src/js/app.js":
 /*!***********************!*\
   !*** ./src/js/app.js ***!
@@ -12987,20 +13001,43 @@ process.umask = function() { return 0; };
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _commom_forms_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./commom/forms/forms */ "./src/js/commom/forms/forms.js");
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _commom_forms_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./commom/forms/forms */ "./src/js/commom/forms/forms.js");
+/* harmony import */ var _views_system_auth_login_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./views/system/auth/login.view */ "./src/js/views/system/auth/login.view.js");
+/* harmony import */ var _views_system_users_users_all__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/system/users/users.all */ "./src/js/views/system/users/users.all.js");
+/* harmony import */ var _libs_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./libs/toastr */ "./src/js/libs/toastr.js");
+/* harmony import */ var _libs_toastr__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_libs_toastr__WEBPACK_IMPORTED_MODULE_3__);
 
 
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
+
+window.toastr = _libs_toastr__WEBPACK_IMPORTED_MODULE_3___default.a;
+_libs_toastr__WEBPACK_IMPORTED_MODULE_3___default.a.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
 /**
  * Application bootstrap
  */
 
-
 $(function () {
   Object(_commom_forms_forms__WEBPACK_IMPORTED_MODULE_0__["validateFormFields"])();
+  _views_system_auth_login_view__WEBPACK_IMPORTED_MODULE_1__["start"]();
+  _views_system_users_users_all__WEBPACK_IMPORTED_MODULE_2__["all"]();
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -13008,12 +13045,15 @@ $(function () {
 /*!**************************************!*\
   !*** ./src/js/commom/forms/forms.js ***!
   \**************************************/
-/*! exports provided: validateFormFields */
+/*! exports provided: validateFormFields, makeInputFieldValid, makeInputFieldInvalid, resetInputFields */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateFormFields", function() { return validateFormFields; });
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateFormFields", function() { return validateFormFields; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeInputFieldValid", function() { return makeInputFieldValid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeInputFieldInvalid", function() { return makeInputFieldInvalid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetInputFields", function() { return resetInputFields; });
 function validateFormFields() {
   'use strict';
 
@@ -13032,6 +13072,695 @@ function validateFormFields() {
       }, false);
     });
   }, false);
+}
+function makeInputFieldValid(field) {
+  field.addClass('is-valid');
+  field.removeClass('is-invalid');
+}
+function makeInputFieldInvalid(field) {
+  field.addClass('is-invalid');
+  field.removeClass('is-valid');
+}
+/**
+ * This resets any is-invalid class applied to any of the input fields
+ * in the given container
+ * @param container
+ */
+
+function resetInputFields(container) {
+  var fields = $(container).find('.form-control');
+  $.each(fields, function (i, obj) {
+    $(obj).removeClass('is-invalid');
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./src/js/commom/helper.js":
+/*!*********************************!*\
+  !*** ./src/js/commom/helper.js ***!
+  \*********************************/
+/*! exports provided: reloadPage, getSiteUrl, redirect */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reloadPage", function() { return reloadPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSiteUrl", function() { return getSiteUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "redirect", function() { return redirect; });
+/**
+ * Reloads the page
+ */
+function reloadPage() {
+  window.location.reload();
+}
+/**
+ * Gets the base site url with protocol
+ * Eg. http://localhost/
+ * @returns {string}
+ */
+
+function getSiteUrl() {
+  return "".concat(window.location.protocol, "//").concat(window.location.hostname);
+}
+/**
+ * Redirects to the given url path
+ * @param path
+ */
+
+function redirect(path) {
+  location.replace(path);
+}
+
+/***/ }),
+
+/***/ "./src/js/libs/toastr.js":
+/*!*******************************!*\
+  !*** ./src/js/libs/toastr.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+ * Toastr
+ * Copyright 2012-2015
+ * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
+ * All Rights Reserved.
+ * Use, reproduction, distribution, and modification of this code is subject to the terms and
+ * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ *
+ * ARIA Support: Greta Krafsig
+ *
+ * Project: https://github.com/CodeSeven/toastr
+ */
+
+/* global define */
+(function (define) {
+  !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    return function () {
+      var $container;
+      var listener;
+      var toastId = 0;
+      var toastType = {
+        error: 'error',
+        info: 'info',
+        success: 'success',
+        warning: 'warning'
+      };
+      var toastr = {
+        clear: clear,
+        remove: remove,
+        error: error,
+        getContainer: getContainer,
+        info: info,
+        options: {},
+        subscribe: subscribe,
+        success: success,
+        version: '2.1.4',
+        warning: warning
+      };
+      var previousToast;
+      return toastr; ////////////////
+
+      function error(message, title, optionsOverride) {
+        return notify({
+          type: toastType.error,
+          iconClass: getOptions().iconClasses.error,
+          message: message,
+          optionsOverride: optionsOverride,
+          title: title
+        });
+      }
+
+      function getContainer(options, create) {
+        if (!options) {
+          options = getOptions();
+        }
+
+        $container = $('#' + options.containerId);
+
+        if ($container.length) {
+          return $container;
+        }
+
+        if (create) {
+          $container = createContainer(options);
+        }
+
+        return $container;
+      }
+
+      function info(message, title, optionsOverride) {
+        return notify({
+          type: toastType.info,
+          iconClass: getOptions().iconClasses.info,
+          message: message,
+          optionsOverride: optionsOverride,
+          title: title
+        });
+      }
+
+      function subscribe(callback) {
+        listener = callback;
+      }
+
+      function success(message, title, optionsOverride) {
+        return notify({
+          type: toastType.success,
+          iconClass: getOptions().iconClasses.success,
+          message: message,
+          optionsOverride: optionsOverride,
+          title: title
+        });
+      }
+
+      function warning(message, title, optionsOverride) {
+        return notify({
+          type: toastType.warning,
+          iconClass: getOptions().iconClasses.warning,
+          message: message,
+          optionsOverride: optionsOverride,
+          title: title
+        });
+      }
+
+      function clear($toastElement, clearOptions) {
+        var options = getOptions();
+
+        if (!$container) {
+          getContainer(options);
+        }
+
+        if (!clearToast($toastElement, options, clearOptions)) {
+          clearContainer(options);
+        }
+      }
+
+      function remove($toastElement) {
+        var options = getOptions();
+
+        if (!$container) {
+          getContainer(options);
+        }
+
+        if ($toastElement && $(':focus', $toastElement).length === 0) {
+          removeToast($toastElement);
+          return;
+        }
+
+        if ($container.children().length) {
+          $container.remove();
+        }
+      } // internal functions
+
+
+      function clearContainer(options) {
+        var toastsToClear = $container.children();
+
+        for (var i = toastsToClear.length - 1; i >= 0; i--) {
+          clearToast($(toastsToClear[i]), options);
+        }
+      }
+
+      function clearToast($toastElement, options, clearOptions) {
+        var force = clearOptions && clearOptions.force ? clearOptions.force : false;
+
+        if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
+          $toastElement[options.hideMethod]({
+            duration: options.hideDuration,
+            easing: options.hideEasing,
+            complete: function complete() {
+              removeToast($toastElement);
+            }
+          });
+          return true;
+        }
+
+        return false;
+      }
+
+      function createContainer(options) {
+        $container = $('<div/>').attr('id', options.containerId).addClass(options.positionClass);
+        $container.appendTo($(options.target));
+        return $container;
+      }
+
+      function getDefaults() {
+        return {
+          tapToDismiss: true,
+          toastClass: 'toast',
+          containerId: 'toast-container',
+          debug: false,
+          showMethod: 'fadeIn',
+          //fadeIn, slideDown, and show are built into jQuery
+          showDuration: 300,
+          showEasing: 'swing',
+          //swing and linear are built into jQuery
+          onShown: undefined,
+          hideMethod: 'fadeOut',
+          hideDuration: 1000,
+          hideEasing: 'swing',
+          onHidden: undefined,
+          closeMethod: false,
+          closeDuration: false,
+          closeEasing: false,
+          closeOnHover: true,
+          extendedTimeOut: 1000,
+          iconClasses: {
+            error: 'toast-error',
+            info: 'toast-info',
+            success: 'toast-success',
+            warning: 'toast-warning'
+          },
+          iconClass: 'toast-info',
+          positionClass: 'toast-top-right',
+          timeOut: 5000,
+          // Set timeOut and extendedTimeOut to 0 to make it sticky
+          titleClass: 'toast-title',
+          messageClass: 'toast-message',
+          escapeHtml: false,
+          target: 'body',
+          closeHtml: '<button type="button">&times;</button>',
+          closeClass: 'toast-close-button',
+          newestOnTop: true,
+          preventDuplicates: false,
+          progressBar: false,
+          progressClass: 'toast-progress',
+          rtl: false
+        };
+      }
+
+      function publish(args) {
+        if (!listener) {
+          return;
+        }
+
+        listener(args);
+      }
+
+      function notify(map) {
+        var options = getOptions();
+        var iconClass = map.iconClass || options.iconClass;
+
+        if (typeof map.optionsOverride !== 'undefined') {
+          options = $.extend(options, map.optionsOverride);
+          iconClass = map.optionsOverride.iconClass || iconClass;
+        }
+
+        if (shouldExit(options, map)) {
+          return;
+        }
+
+        toastId++;
+        $container = getContainer(options, true);
+        var intervalId = null;
+        var $toastElement = $('<div/>');
+        var $titleElement = $('<div/>');
+        var $messageElement = $('<div/>');
+        var $progressElement = $('<div/>');
+        var $closeElement = $(options.closeHtml);
+        var progressBar = {
+          intervalId: null,
+          hideEta: null,
+          maxHideTime: null
+        };
+        var response = {
+          toastId: toastId,
+          state: 'visible',
+          startTime: new Date(),
+          options: options,
+          map: map
+        };
+        personalizeToast();
+        displayToast();
+        handleEvents();
+        publish(response);
+
+        if (options.debug && console) {
+          console.log(response);
+        }
+
+        return $toastElement;
+
+        function escapeHtml(source) {
+          if (source == null) {
+            source = '';
+          }
+
+          return source.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function personalizeToast() {
+          setIcon();
+          setTitle();
+          setMessage();
+          setCloseButton();
+          setProgressBar();
+          setRTL();
+          setSequence();
+          setAria();
+        }
+
+        function setAria() {
+          var ariaValue = '';
+
+          switch (map.iconClass) {
+            case 'toast-success':
+            case 'toast-info':
+              ariaValue = 'polite';
+              break;
+
+            default:
+              ariaValue = 'assertive';
+          }
+
+          $toastElement.attr('aria-live', ariaValue);
+        }
+
+        function handleEvents() {
+          if (options.closeOnHover) {
+            $toastElement.hover(stickAround, delayedHideToast);
+          }
+
+          if (!options.onclick && options.tapToDismiss) {
+            $toastElement.click(hideToast);
+          }
+
+          if (options.closeButton && $closeElement) {
+            $closeElement.click(function (event) {
+              if (event.stopPropagation) {
+                event.stopPropagation();
+              } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
+                event.cancelBubble = true;
+              }
+
+              if (options.onCloseClick) {
+                options.onCloseClick(event);
+              }
+
+              hideToast(true);
+            });
+          }
+
+          if (options.onclick) {
+            $toastElement.click(function (event) {
+              options.onclick(event);
+              hideToast();
+            });
+          }
+        }
+
+        function displayToast() {
+          $toastElement.hide();
+          $toastElement[options.showMethod]({
+            duration: options.showDuration,
+            easing: options.showEasing,
+            complete: options.onShown
+          });
+
+          if (options.timeOut > 0) {
+            intervalId = setTimeout(hideToast, options.timeOut);
+            progressBar.maxHideTime = parseFloat(options.timeOut);
+            progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+
+            if (options.progressBar) {
+              progressBar.intervalId = setInterval(updateProgress, 10);
+            }
+          }
+        }
+
+        function setIcon() {
+          if (map.iconClass) {
+            $toastElement.addClass(options.toastClass).addClass(iconClass);
+          }
+        }
+
+        function setSequence() {
+          if (options.newestOnTop) {
+            $container.prepend($toastElement);
+          } else {
+            $container.append($toastElement);
+          }
+        }
+
+        function setTitle() {
+          if (map.title) {
+            var suffix = map.title;
+
+            if (options.escapeHtml) {
+              suffix = escapeHtml(map.title);
+            }
+
+            $titleElement.append(suffix).addClass(options.titleClass);
+            $toastElement.append($titleElement);
+          }
+        }
+
+        function setMessage() {
+          if (map.message) {
+            var suffix = map.message;
+
+            if (options.escapeHtml) {
+              suffix = escapeHtml(map.message);
+            }
+
+            $messageElement.append(suffix).addClass(options.messageClass);
+            $toastElement.append($messageElement);
+          }
+        }
+
+        function setCloseButton() {
+          if (options.closeButton) {
+            $closeElement.addClass(options.closeClass).attr('role', 'button');
+            $toastElement.prepend($closeElement);
+          }
+        }
+
+        function setProgressBar() {
+          if (options.progressBar) {
+            $progressElement.addClass(options.progressClass);
+            $toastElement.prepend($progressElement);
+          }
+        }
+
+        function setRTL() {
+          if (options.rtl) {
+            $toastElement.addClass('rtl');
+          }
+        }
+
+        function shouldExit(options, map) {
+          if (options.preventDuplicates) {
+            if (map.message === previousToast) {
+              return true;
+            } else {
+              previousToast = map.message;
+            }
+          }
+
+          return false;
+        }
+
+        function hideToast(override) {
+          var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
+          var duration = override && options.closeDuration !== false ? options.closeDuration : options.hideDuration;
+          var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
+
+          if ($(':focus', $toastElement).length && !override) {
+            return;
+          }
+
+          clearTimeout(progressBar.intervalId);
+          return $toastElement[method]({
+            duration: duration,
+            easing: easing,
+            complete: function complete() {
+              removeToast($toastElement);
+              clearTimeout(intervalId);
+
+              if (options.onHidden && response.state !== 'hidden') {
+                options.onHidden();
+              }
+
+              response.state = 'hidden';
+              response.endTime = new Date();
+              publish(response);
+            }
+          });
+        }
+
+        function delayedHideToast() {
+          if (options.timeOut > 0 || options.extendedTimeOut > 0) {
+            intervalId = setTimeout(hideToast, options.extendedTimeOut);
+            progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
+            progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+          }
+        }
+
+        function stickAround() {
+          clearTimeout(intervalId);
+          progressBar.hideEta = 0;
+          $toastElement.stop(true, true)[options.showMethod]({
+            duration: options.showDuration,
+            easing: options.showEasing
+          });
+        }
+
+        function updateProgress() {
+          var percentage = (progressBar.hideEta - new Date().getTime()) / progressBar.maxHideTime * 100;
+          $progressElement.width(percentage + '%');
+        }
+      }
+
+      function getOptions() {
+        return $.extend({}, getDefaults(), toastr.options);
+      }
+
+      function removeToast($toastElement) {
+        if (!$container) {
+          $container = getContainer();
+        }
+
+        if ($toastElement.is(':visible')) {
+          return;
+        }
+
+        $toastElement.remove();
+        $toastElement = null;
+
+        if ($container.children().length === 0) {
+          $container.remove();
+          previousToast = undefined;
+        }
+      }
+    }();
+  }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+})(__webpack_require__(/*! !webpack amd define */ "./node_modules/webpack/buildin/amd-define.js"));
+
+/***/ }),
+
+/***/ "./src/js/views/system/auth/login.view.js":
+/*!************************************************!*\
+  !*** ./src/js/views/system/auth/login.view.js ***!
+  \************************************************/
+/*! exports provided: start */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "start", function() { return start; });
+/* harmony import */ var _commom_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../commom/helper */ "./src/js/commom/helper.js");
+
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
+
+function start() {
+  if (document.getElementById("view_login") == null) return null;
+  processLogin();
+}
+
+function processLogin() {
+  var fields = {
+    'username': $("#field_username"),
+    'password': $("#field_password")
+  };
+  $("#btn_login").click(function () {
+    axios.post("".concat(_commom_helper__WEBPACK_IMPORTED_MODULE_0__["getSiteUrl"](), "/api/auth/process-login"), {
+      'username': fields.username.val(),
+      'password': fields.password.val()
+    }).then(function (response) {
+      _commom_helper__WEBPACK_IMPORTED_MODULE_0__["redirect"]("".concat(_commom_helper__WEBPACK_IMPORTED_MODULE_0__["getSiteUrl"]()));
+    })["catch"](function (error) {
+      toastr["error"](error.response.data.data);
+    });
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./src/js/views/system/users/add.users.view.js":
+/*!*****************************************************!*\
+  !*** ./src/js/views/system/users/add.users.view.js ***!
+  \*****************************************************/
+/*! exports provided: start */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "start", function() { return start; });
+/* harmony import */ var _commom_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../commom/helper */ "./src/js/commom/helper.js");
+/* harmony import */ var _commom_forms_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../commom/forms/forms */ "./src/js/commom/forms/forms.js");
+
+
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
+
+function start() {
+  if (document.getElementById("view_add_user") == null) return false;
+  processAddUser();
+}
+
+function processAddUser() {
+  $("#btn_add_user").click(function () {
+    Object(_commom_forms_forms__WEBPACK_IMPORTED_MODULE_1__["resetInputFields"])($("#form_add_user"));
+    var fields = {
+      'display_name': $("#field_display_name"),
+      'username': $("#field_username"),
+      'password': $("#field_password"),
+      'role': $("#dropdown_user_role")
+    };
+    var validated = true;
+
+    if (fields.display_name.val().trim() === "") {
+      validated = false;
+      Object(_commom_forms_forms__WEBPACK_IMPORTED_MODULE_1__["makeInputFieldInvalid"])(fields.display_name);
+    }
+
+    if (fields.username.val().trim() === "") {
+      validated = false;
+      Object(_commom_forms_forms__WEBPACK_IMPORTED_MODULE_1__["makeInputFieldInvalid"])(fields.username);
+    }
+
+    if (fields.password.val() === "") {
+      validated = false;
+      Object(_commom_forms_forms__WEBPACK_IMPORTED_MODULE_1__["makeInputFieldInvalid"])(fields.password);
+    }
+
+    if (!validated) return false;
+    axios.post("".concat(_commom_helper__WEBPACK_IMPORTED_MODULE_0__["getSiteUrl"](), "/api/users/process-add"), {
+      'display_name': fields.display_name.val(),
+      'username': fields.username.val(),
+      'password': fields.password.val(),
+      'role': fields.role.val()
+    }).then(function (response) {
+      _commom_helper__WEBPACK_IMPORTED_MODULE_0__["redirect"]("".concat(_commom_helper__WEBPACK_IMPORTED_MODULE_0__["getSiteUrl"](), "/users"));
+    })["catch"](function (error) {
+      console.log(error.response.data);
+      toastr['error'](error.response.data.data);
+    });
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./src/js/views/system/users/users.all.js":
+/*!************************************************!*\
+  !*** ./src/js/views/system/users/users.all.js ***!
+  \************************************************/
+/*! exports provided: all */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "all", function() { return all; });
+/* harmony import */ var _add_users_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add.users.view */ "./src/js/views/system/users/add.users.view.js");
+
+function all() {
+  _add_users_view__WEBPACK_IMPORTED_MODULE_0__["start"]();
 }
 
 /***/ }),

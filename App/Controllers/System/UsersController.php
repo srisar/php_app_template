@@ -5,10 +5,11 @@ namespace App\Controllers\System;
 
 
 use App\Core\App;
-use App\Core\FlashMessage;
 use App\Core\Messages\SessionError;
 use App\Core\Messages\SessionForm;
-use App\Core\Request;
+use App\Core\Requests\Axios;
+use App\Core\Requests\JSONResponse;
+use App\Core\Requests\Request;
 use App\Core\View;
 use App\Models\User;
 
@@ -114,6 +115,32 @@ class UsersController
         }
 
     }
+
+    public function apiProcessAddUser()
+    {
+
+        $fields = Axios::get();
+
+        if ( User::findByUsername($fields['username']) ) {
+
+            JSONResponse::invalidResponse(["data" => "Username is not available"]);
+            return;
+        }
+
+        if ( strlen($fields['password']) < 5 ) {
+            JSONResponse::invalidResponse(["data" => "Invalid password: minimum 5 characters."]);
+            return;
+        }
+
+        $fields['password'] = hashPassword($fields['password']);
+        $user = User::build($fields);
+
+        if ( $user->insert() ) {
+            (new JSONResponse(['data' => "User added."]))->response();
+        }
+
+    }
+
 
     public function processEditUser()
     {

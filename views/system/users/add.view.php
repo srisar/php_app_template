@@ -7,6 +7,8 @@ use App\Models\User;
 
 <?php include_once BASE_PATH . '/views/_header.inc.php'; ?>
 
+<div id="view_add_user"></div>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
@@ -15,7 +17,7 @@ use App\Models\User;
                     <div class="card-header"><h1>Add new user</h1></div>
                     <div class="card-body">
 
-                        <form action="<?= App::url('/users/process-add') ?>" method="post" novalidate class="needs-validation">
+                        <form id="form_add_user" class="needs-validation">
 
                             <div class="row">
                                 <div class="col">
@@ -69,7 +71,7 @@ use App\Models\User;
 
                             <div class="row">
                                 <div class="col text-right">
-                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="button" id="btn_add_user" class="btn btn-success">Save</button>
                                     <a href="<?= App::url('/users') ?>" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </div>

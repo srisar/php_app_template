@@ -15,3 +15,27 @@ export function validateFormFields() {
         });
     }, false);
 }
+
+
+export function makeInputFieldValid(field) {
+    field.addClass('is-valid');
+    field.removeClass('is-invalid');
+}
+
+export function makeInputFieldInvalid(field) {
+    field.addClass('is-invalid');
+    field.removeClass('is-valid');
+}
+
+/**
+ * This resets any is-invalid class applied to any of the input fields
+ * in the given container
+ * @param container
+ */
+export function resetInputFields(container) {
+    let fields = $(container).find('.form-control');
+
+    $.each(fields, function (i, obj) {
+        $(obj).removeClass('is-invalid');
+    })
+}

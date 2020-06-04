@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Core;
+namespace App\Core\Requests;
 
 
 class Request

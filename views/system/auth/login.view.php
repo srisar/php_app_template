@@ -1,7 +1,6 @@
 <?php
 
 use App\Core\App;
-use App\Core\FlashMessage;
 use App\Core\Messages\SessionError;
 
 ?>
@@ -16,6 +15,8 @@ use App\Core\Messages\SessionError;
     <script src="<?= App::siteURL() ?>/js/app.js" defer></script>
 </head>
 <body>
+
+<div id="view_login"></div>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -46,7 +47,7 @@ use App\Core\Messages\SessionError;
                         </div>
 
                         <div class="text-center">
-                            <button class="btn btn-primary" type="submit">Login</button>
+                            <button class="btn btn-primary" type="button" id="btn_login">Login</button>
                         </div>
 
                     </form>
