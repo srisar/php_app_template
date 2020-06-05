@@ -1,6 +1,8 @@
 import * as helper from "../../../commom/helper";
 import {makeInputFieldInvalid, resetInputFields} from "../../../commom/forms/forms";
 
+import * as toast from "../../../commom/toasts";
+
 let axios = require('axios').default;
 
 export function start() {
@@ -13,7 +15,7 @@ export function start() {
 function processAddUser() {
 
 
-    $("#btn_add_user").click(function () {
+    $("#btn_add_user").on("click", function () {
 
         resetInputFields($("#form_add_user"));
 
@@ -27,15 +29,15 @@ function processAddUser() {
 
         let validated = true;
 
-        if (fields.display_name.val().trim() === "") {
+        if (fields.display_name.val().toString().trim() === "") {
             validated = false;
             makeInputFieldInvalid(fields.display_name);
         }
-        if (fields.username.val().trim() === "") {
+        if (fields.username.val().toString().trim() === "") {
             validated = false;
             makeInputFieldInvalid(fields.username);
         }
-        if (fields.password.val() === "") {
+        if (fields.password.val().toString() === "") {
             validated = false;
             makeInputFieldInvalid(fields.password);
         }
@@ -56,7 +58,9 @@ function processAddUser() {
             })
             .catch(function (error) {
                 console.log(error.response.data);
-                toastr['error'](error.response.data.data);
+                toast.showErrorToast(error.response.data.data);
+                toast.showInfoToast(error.response.data.data);
+                toast.showSuccessToast(error.response.data.data);
 
             });
 

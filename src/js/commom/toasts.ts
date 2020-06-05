@@ -1,9 +1,4 @@
-import {validateFormFields} from "./commom/forms/forms";
-import * as loginView from "./views/system/auth/login.view";
-import * as userView from "./views/system/users/users.all"
-import toastr from "./libs/toastr"
-
-window.toastr = toastr;
+import * as toastr from "./../libs/toastr";
 
 toastr.options = {
     "closeButton": false,
@@ -23,15 +18,18 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 
+export function showInfoToast(message: string) {
+    toastr['info'](message);
+}
 
-/**
- * Application bootstrap
- */
-$(function () {
-    validateFormFields();
+export function showWarningToast(message: string) {
+    toastr['warning'](message);
+}
 
-    loginView.start();
-    userView.all();
+export function showErrorToast(message: string) {
+    toastr['error'](message);
+}
 
-
-})
+export function showSuccessToast(message: string) {
+    toastr['success'](message);
+}

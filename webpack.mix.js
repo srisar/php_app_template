@@ -6,8 +6,8 @@ mix.autoload({
     jquery: ['$', 'window.jQuery']
 });
 
-mix.js('src/js/app.js', 'public/js')
-    .sass('src/scss/app.scss', 'public/css');
+mix.ts('src/js/app.ts', 'public/js')
+    .sass('src/scss/app.scss', 'public/css').sourceMaps();
 
 mix.js([
     'node_modules/@popperjs/core/dist/umd/popper.min.js',
@@ -15,3 +15,5 @@ mix.js([
     'src/js/libs/toastr.js'
 ], 'public/js/libs/libs.js');
 
+
+// mix.ts('src/js/app_test.ts', 'public/js');

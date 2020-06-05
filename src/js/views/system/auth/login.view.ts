@@ -1,4 +1,6 @@
 import * as helper from "../../../commom/helper";
+import {showErrorToast} from "../../../commom/toasts";
+
 let axios = require('axios').default;
 
 
@@ -16,7 +18,7 @@ function processLogin() {
         'password': $("#field_password")
     }
 
-    $("#btn_login").click(function () {
+    $("#btn_login").on("click", function () {
 
         axios.post(`${helper.getSiteUrl()}/api/auth/process-login`, {
             'username': fields.username.val(),
@@ -29,7 +31,7 @@ function processLogin() {
             })
             .catch(function (error) {
 
-                toastr["error"](error.response.data.data);
+                showErrorToast(error.response.data.data);
 
             });
 
