@@ -83,9 +83,11 @@ $user = View::getData('user');
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row my-2">
                                 <div class="col">
-                                    <p>&rarr; Keep password field empty to retain old password.</p>
+                                    <div class="alert alert-info">
+                                        &rarr; Keep password field empty to retain old password.
+                                    </div>
                                 </div>
                             </div>
 
