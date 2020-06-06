@@ -17,12 +17,14 @@ $users = View::getData('users');
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="float-left"><h1>Manage users</h1></div>
-                        <div class="float-right"><a href="<?= App::url('/users/add') ?>" class="btn btn-primary btn-sm">New user</a></div>
+                        <div class="align-content-center">Manage users</div>
+
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-bordered table-striped">
+                        <div class="mb-3 text-right"><a href="<?= App::url('/users/add') ?>" class="btn btn-primary btn-sm">Add new user</a></div>
+
+                        <table class="table table-bordered table-striped datatable_simple">
                             <thead>
                             <tr>
                                 <th>Username</th>
