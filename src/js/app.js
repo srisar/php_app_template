@@ -26,8 +26,6 @@ $(function () {
 
     $(".datatable_simple").DataTable({
         "paging": false,
-        "odering": true,
-        "search": false
     })
 
 
